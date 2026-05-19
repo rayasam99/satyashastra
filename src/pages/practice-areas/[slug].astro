@@ -1,0 +1,490 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { practiceAreas } from '../../data/practiceAreas.js';
+
+export async function getStaticPaths() {
+  return practiceAreas.map(area => ({
+    params: { slug: area.slug },
+    props:  { area },
+  }));
+}
+
+const { area } = Astro.props;
+---
+
+<Layout
+  title={area.title}
+  description={`Satya Shastra provides expert legal services in ${area.title}. ${area.excerpt}`}
+>
+
+  <!-- ── Practice Area Banner ── -->
+  <div class="pa-banner">
+    <img src={area.image} alt={area.title} class="pa-banner__bg" loading="eager" />
+    <div class="pa-banner__overlay"></div>
+    <div class="container pa-banner__content">
+      <span class="pa-banner__eyebrow">Practice Area</span>
+      <div class="pa-banner__divider" aria-hidden="true">
+        <span class="pa-banner__line"></span>
+        <span class="pa-banner__scales">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M5 10l-2 7h4z"/><path d="M19 10l-2 7h4z"/><line x1="5" y1="21" x2="19" y2="21"/></svg>
+        </span>
+        <span class="pa-banner__line"></span>
+      </div>
+      <h1 class="pa-banner__title">{area.title}</h1>
+      <nav class="pa-banner__breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="/practice-areas">Practice Areas</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">{area.title}</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ── Content ── -->
+  <section class="section">
+    <div class="container">
+      <div class="pa-detail__layout">
+
+        <!-- Main Content -->
+        <div class="pa-detail__main">
+
+          <!-- Lead -->
+          <p class="pa-detail__lead">{area.lead}</p>
+
+          <!-- Sections -->
+          {area.sections.map((sec: { heading: string; items: string[] }) => (
+            <div class="pa-detail__section">
+              <h3 class="pa-detail__section-heading">{sec.heading}</h3>
+              <ul class="pa-detail__list">
+                {sec.items.map((item: string) => {
+                  const colonIdx = item.indexOf(':');
+                  const hasLabel = colonIdx > 0 && colonIdx < 40;
+                  const label = hasLabel ? item.slice(0, colonIdx + 1) : '';
+                  const rest  = hasLabel ? item.slice(colonIdx + 1) : item;
+                  return (
+                    <li>
+                      <span class="pa-detail__check" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="20 6 9 17 4 12"/></svg>
+                      </span>
+                      <span>{hasLabel && <strong>{label}</strong>}{rest}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+
+          <!-- Why Satya Shastra -->
+          <div class="pa-detail__why">
+            <h3 class="pa-detail__why-heading">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M5 10l-2 7h4z"/><path d="M19 10l-2 7h4z"/><line x1="5" y1="21" x2="19" y2="21"/></svg>
+              Why Satya Shastra?
+            </h3>
+            <p>{area.why}</p>
+          </div>
+
+          <!-- CTA -->
+          <div class="pa-detail__cta">
+            <p>Ready to speak with an attorney about your {area.title} matter?</p>
+            <a href="/contact" class="btn btn--primary btn--lg">Book a Consultation</a>
+          </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="pa-detail__sidebar">
+          <div class="pa-sidebar__box">
+            <div class="pa-sidebar__header">
+              <h4 class="pa-sidebar__title">Our Practice Areas</h4>
+              <div class="pa-sidebar__scales" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" width="56" height="56"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M5 10l-2 7h4z"/><path d="M19 10l-2 7h4z"/><line x1="5" y1="21" x2="19" y2="21"/></svg>
+              </div>
+            </div>
+            <ul class="pa-sidebar__list">
+              {practiceAreas.map(a => (
+                <li>
+                  <a
+                    href={`/practice-areas/${a.slug}`}
+                    class={`pa-sidebar__link${a.slug === area.slug ? ' pa-sidebar__link--active' : ''}`}
+                  >
+                    <span class="pa-sidebar__arrow">›</span>
+                    {a.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Contact CTA -->
+          <div class="pa-sidebar__contact">
+            <h4>Need Legal Help?</h4>
+            <p>Our attorneys are ready to assist you. Contact us today for a confidential consultation.</p>
+            <a href="tel:+11234567890" class="pa-sidebar__phone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.19h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +1 (123) 456 7890
+            </a>
+            <a href="/contact" class="btn btn--outline-dark" style="width: 100%; justify-content: center; margin-top: var(--space-3);">Send a Message</a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* ── Banner ── */
+  .pa-banner {
+    position:   relative;
+    min-height: 360px;
+    display:    flex;
+    align-items: center;
+    overflow:   hidden;
+  }
+
+  .pa-banner__bg {
+    position:   absolute;
+    inset:      0;
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    z-index:    0;
+  }
+
+  .pa-banner__overlay {
+    position:   absolute;
+    inset:      0;
+    background: rgba(10, 10, 10, 0.80);
+    z-index:    1;
+  }
+
+  .pa-banner__content {
+    position:   relative;
+    z-index:    2;
+    text-align: center;
+    padding-top:    var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+
+  .pa-banner__eyebrow {
+    display:        block;
+    font-size:      var(--text-xs);
+    font-weight:    var(--fw-semibold);
+    color:          var(--grey-400);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom:  var(--space-5);
+  }
+
+  .pa-banner__divider {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             var(--space-4);
+    margin-bottom:   var(--space-5);
+  }
+
+  .pa-banner__line {
+    display:    block;
+    width:      80px;
+    height:     1px;
+    background: var(--grey-500);
+    flex-shrink: 0;
+  }
+
+  .pa-banner__scales {
+    color: var(--grey-300);
+    display: flex;
+    align-items: center;
+  }
+
+  .pa-banner__title {
+    font-family:    var(--font-heading);
+    font-size:      clamp(var(--text-3xl), 5vw, var(--text-5xl));
+    font-weight:    var(--fw-bold);
+    color:          var(--white);
+    line-height:    var(--lh-snug);
+    margin-bottom:  var(--space-6);
+  }
+
+  .pa-banner__breadcrumb {
+    display:     flex;
+    align-items: center;
+    justify-content: center;
+    gap:         var(--space-2);
+    font-size:   var(--text-sm);
+    flex-wrap:   wrap;
+  }
+
+  .pa-banner__breadcrumb a {
+    color:           var(--grey-400);
+    text-decoration: none;
+    transition:      color var(--transition-fast);
+  }
+  .pa-banner__breadcrumb a:hover {
+    color: var(--white);
+  }
+
+  .pa-banner__breadcrumb span[aria-hidden] {
+    color: var(--grey-600);
+  }
+
+  .pa-banner__breadcrumb span[aria-current] {
+    color: var(--grey-300);
+  }
+
+  /* ── Layout ── */
+  .pa-detail__layout {
+    display:               grid;
+    grid-template-columns: 1fr 300px;
+    gap:                   var(--space-12);
+    align-items:           start;
+  }
+
+  /* ── Main ── */
+  .pa-detail__lead {
+    font-size:     var(--text-md);
+    color:         var(--grey-600);
+    line-height:   var(--lh-relaxed);
+    font-style:    italic;
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--grey-100);
+  }
+
+  .pa-detail__section {
+    margin-bottom: var(--space-8);
+  }
+
+  .pa-detail__section-heading {
+    font-size:     var(--text-xl);
+    font-weight:   var(--fw-bold);
+    color:         var(--grey-800);
+    margin-bottom: var(--space-4);
+    font-family:   var(--font-heading);
+  }
+
+  .pa-detail__list {
+    list-style:     none;
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--space-3);
+  }
+
+  .pa-detail__list li {
+    display:     flex;
+    align-items: flex-start;
+    gap:         var(--space-3);
+    font-size:   var(--text-sm);
+    color:       var(--grey-600);
+    line-height: var(--lh-normal);
+  }
+
+  .pa-detail__check {
+    flex-shrink:     0;
+    width:           20px;
+    height:          20px;
+    border-radius:   50%;
+    background:      var(--grey-800);
+    color:           var(--white);
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    margin-top:      1px;
+  }
+
+  /* ── Why ── */
+  .pa-detail__why {
+    background:    var(--grey-800);
+    padding:       var(--space-8) var(--space-8);
+    margin:        var(--space-8) 0;
+    position:      relative;
+    overflow:      hidden;
+  }
+
+  .pa-detail__why::before {
+    content:     '';
+    position:    absolute;
+    top:         -40px;
+    right:       -40px;
+    width:       160px;
+    height:      160px;
+    border:      1px solid rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+
+  .pa-detail__why::after {
+    content:     '';
+    position:    absolute;
+    bottom:      -60px;
+    right:       20px;
+    width:       220px;
+    height:      220px;
+    border:      1px solid rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+
+  .pa-detail__why-heading {
+    display:       flex;
+    align-items:   center;
+    gap:           var(--space-3);
+    font-size:     var(--text-xl);
+    font-weight:   var(--fw-bold);
+    color:         var(--white);
+    margin-bottom: var(--space-4);
+    font-family:   var(--font-heading);
+    padding-bottom: var(--space-4);
+    border-bottom:  1px solid rgba(255,255,255,0.12);
+  }
+
+  .pa-detail__why-heading svg {
+    color:       rgba(255,255,255,0.5);
+    flex-shrink: 0;
+  }
+
+  .pa-detail__why p {
+    font-size:   var(--text-sm);
+    color:       var(--grey-300);
+    line-height: var(--lh-relaxed);
+    position:    relative;
+    z-index:     1;
+  }
+
+  /* ── CTA ── */
+  .pa-detail__cta {
+    margin-top:  var(--space-8);
+    padding:     var(--space-8);
+    background:  var(--grey-800);
+    text-align:  center;
+  }
+
+  .pa-detail__cta p {
+    font-size:     var(--text-base);
+    font-weight:   var(--fw-medium);
+    color:         var(--grey-200);
+    margin-bottom: var(--space-5);
+  }
+
+  /* ── Sidebar ── */
+  .pa-sidebar__box {
+    border:        1px solid var(--grey-100);
+    overflow:      hidden;
+    margin-bottom: var(--space-6);
+    background:    var(--white);
+  }
+
+  .pa-sidebar__header {
+    background:  var(--grey-050);
+    padding:     var(--space-5) var(--space-5) var(--space-4);
+    text-align:  center;
+    border-bottom: 1px solid var(--grey-100);
+  }
+
+  .pa-sidebar__title {
+    font-size:      var(--text-sm);
+    font-weight:    var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-wide);
+    color:          var(--grey-800);
+    margin-bottom:  var(--space-3);
+  }
+
+  .pa-sidebar__scales {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    color:           var(--grey-300);
+  }
+
+  .pa-sidebar__list {
+    list-style: none;
+  }
+
+  .pa-sidebar__link {
+    display:         flex;
+    align-items:     center;
+    gap:             var(--space-3);
+    padding:         0.65rem var(--space-5);
+    font-size:       var(--text-sm);
+    color:           var(--grey-600);
+    border-bottom:   1px solid var(--grey-050);
+    text-decoration: none;
+    transition:      background var(--transition-fast),
+                     color var(--transition-fast),
+                     padding-left var(--transition-fast);
+  }
+  .pa-sidebar__link:hover,
+  .pa-sidebar__link--active {
+    background:   var(--grey-800);
+    color:        var(--white);
+    padding-left: var(--space-6);
+  }
+
+  .pa-sidebar__arrow {
+    font-size:  var(--text-base);
+    flex-shrink: 0;
+    opacity:    0.6;
+  }
+  .pa-sidebar__link--active .pa-sidebar__arrow,
+  .pa-sidebar__link:hover .pa-sidebar__arrow {
+    opacity: 1;
+  }
+
+  /* Sidebar contact */
+  .pa-sidebar__contact {
+    background: var(--grey-800);
+    padding:    var(--space-6);
+    color:      var(--grey-200);
+  }
+
+  .pa-sidebar__contact h4 {
+    color:         var(--white);
+    font-size:     var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .pa-sidebar__contact p {
+    font-size:     var(--text-sm);
+    color:         var(--grey-300);
+    line-height:   var(--lh-relaxed);
+    margin-bottom: var(--space-5);
+  }
+
+  .pa-sidebar__phone {
+    display:         flex;
+    align-items:     center;
+    gap:             var(--space-3);
+    font-size:       var(--text-base);
+    font-weight:     var(--fw-bold);
+    color:           var(--white);
+    text-decoration: none;
+    transition:      opacity var(--transition-fast);
+    margin-bottom:   var(--space-3);
+  }
+  .pa-sidebar__phone:hover {
+    opacity: 0.8;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .pa-detail__layout {
+      grid-template-columns: 1fr;
+    }
+    .pa-detail__sidebar {
+      display:               grid;
+      grid-template-columns: 1fr 1fr;
+      gap:                   var(--space-6);
+    }
+    .pa-sidebar__box { margin-bottom: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .pa-detail__sidebar {
+      grid-template-columns: 1fr;
+    }
+    .pa-banner { min-height: 280px; }
+    .pa-banner__line { width: 40px; }
+  }
+</style>

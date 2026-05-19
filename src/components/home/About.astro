@@ -1,0 +1,243 @@
+---
+---
+
+<section class="section about">
+  <div class="container">
+    <div class="about__grid">
+
+      <!-- Left: Content -->
+      <div class="about__content">
+        <h2 class="about__title">
+          Dedicated Legal Professionals Committed to Excellence
+        </h2>
+
+        <!-- Decorative scales icon -->
+        <div class="about__deco">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+            <line x1="12" y1="3" x2="12" y2="21"/>
+            <path d="M3 6l9-3 9 3"/>
+            <path d="M5 9l-2 7h4z"/>
+            <path d="M19 9l-2 7h4z"/>
+            <line x1="5" y1="21" x2="19" y2="21"/>
+          </svg>
+        </div>
+
+        <p class="about__text">
+          At Satya Shastra, we are a team of experienced legal professionals
+          dedicated to providing top-tier legal services. With expertise spanning
+          Family Law, Intellectual Property, Corporate Practice, and more, we
+          ensure our clients receive comprehensive and personalized legal solutions.
+          Our commitment to integrity and excellence is unwavering, and we strive
+          to protect your rights and achieve favorable outcomes.
+        </p>
+
+        <!-- Checklist -->
+        <ul class="checklist">
+          <li class="checklist__item">
+            <span class="checklist__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="checklist__label">
+              <strong>Comprehensive Legal Expertise:</strong> Wide-ranging practice areas to address diverse legal needs.
+            </span>
+          </li>
+          <li class="checklist__item">
+            <span class="checklist__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="checklist__label">
+              <strong>Client-Centered Approach:</strong> Personalized services tailored to each client's unique situation.
+            </span>
+          </li>
+          <li class="checklist__item">
+            <span class="checklist__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="checklist__label">
+              <strong>Proven Track Record:</strong> Consistent success in achieving favorable results.
+            </span>
+          </li>
+        </ul>
+
+        <a href="/the-firm" class="btn btn--outline-dark">More About Us</a>
+      </div>
+
+      <!-- Right: Image + Phone Badge -->
+      <div class="about__image-wrap">
+        <div class="about__image-box">
+          <img
+            src="/images/About-Us-Section-Img.webp"
+            alt="Lady Justice statue"
+            class="about__image"
+            loading="lazy"
+          />
+          <!-- Phone badge overlay -->
+          <div class="about__phone-badge">
+            <span class="about__phone-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.19h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+            <div>
+              <a href="tel:+11234567890" class="about__phone-number">+1 (123) 456 7890</a>
+              <span class="about__phone-label">Call for legal service</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding-block: var(--section-py);
+    background:    var(--white);
+  }
+
+  /* ── Two Column Grid ── */
+  .about__grid {
+    display:               grid;
+    grid-template-columns: 55fr 45fr;
+    gap:                   var(--space-16);
+    align-items:           center;
+  }
+
+  /* ── Content Side ── */
+  .about__title {
+    font-size:     var(--text-4xl);
+    font-weight:   var(--fw-bold);
+    line-height:   var(--lh-snug);
+    color:         var(--grey-800);
+    margin-bottom: var(--space-5);
+  }
+
+  /* Decorative scales icon */
+  .about__deco {
+    display:       flex;
+    align-items:   center;
+    color:         var(--grey-400);
+    margin-bottom: var(--space-5);
+  }
+
+  .about__text {
+    font-size:     var(--text-sm);
+    line-height:   var(--lh-relaxed);
+    color:         var(--grey-500);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Checklist */
+  .checklist {
+    list-style:     none;
+    display:        flex;
+    flex-direction: column;
+    gap:            var(--space-4);
+    margin-bottom:  var(--space-8);
+  }
+
+  .checklist__item {
+    display:     flex;
+    gap:         var(--space-3);
+    align-items: flex-start;
+  }
+
+  .checklist__icon {
+    flex-shrink:     0;
+    width:           20px;
+    height:          20px;
+    border-radius:   50%;
+    background:      var(--grey-800);
+    color:           var(--white);
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    margin-top:      2px;
+  }
+
+  .checklist__label {
+    font-size:   var(--text-sm);
+    color:       var(--grey-500);
+    line-height: var(--lh-relaxed);
+  }
+
+  .checklist__label strong {
+    color:       var(--grey-800);
+    font-weight: var(--fw-semibold);
+  }
+
+  /* ── Image Side ── */
+  .about__image-box {
+    position:       relative;
+    overflow:       hidden;
+    background:     var(--grey-100);  /* placeholder bg */
+    aspect-ratio:   4 / 5;
+  }
+
+  .about__image {
+    width:       100%;
+    height:      100%;
+    object-fit:  cover;
+    display:     block;
+  }
+
+  /* Phone badge at bottom of image */
+  .about__phone-badge {
+    position:    absolute;
+    bottom:      0;
+    left:        0;
+    right:       0;
+    background:  var(--grey-800);
+    color:       var(--white);
+    padding:     var(--space-4) var(--space-5);
+    display:     flex;
+    align-items: center;
+    gap:         var(--space-4);
+  }
+
+  .about__phone-icon {
+    flex-shrink:     0;
+    width:           42px;
+    height:          42px;
+    border:          1px solid var(--grey-600);
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+  }
+
+  .about__phone-number {
+    display:     block;
+    font-size:   var(--text-base);
+    font-weight: var(--fw-bold);
+    color:       var(--white);
+    text-decoration: none;
+    transition:  opacity var(--transition-fast);
+  }
+  .about__phone-number:hover {
+    opacity: 0.8;
+  }
+
+  .about__phone-label {
+    display:   block;
+    font-size: var(--text-xs);
+    color:     var(--grey-300);
+    margin-top: 2px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .about__grid {
+      grid-template-columns: 1fr;
+      gap:                   var(--space-10);
+    }
+    .about__image-box {
+      aspect-ratio: 16 / 9;
+      max-height:   420px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about__title {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>

@@ -1,0 +1,130 @@
+---
+---
+
+<section class="hero">
+  <!-- Background image (greyscale via CSS) -->
+  <img
+    class="hero__bg"
+    src="/images/Satya-Hero-Img.webp"
+    alt="Scales of justice"
+    loading="eager"
+  />
+  <div class="hero__overlay"></div>
+
+  <div class="container">
+    <div class="hero__content">
+      <h1 class="hero__title">
+        Trusted Legal Experts<br />
+        Providing Comprehensive<br />
+        <span class="hero__title-underline">Legal Solutions</span>
+      </h1>
+      <p class="hero__subtitle">
+        Satya Shastra delivers expert legal guidance across Family Law, IP,
+        Corporate Practice, and more, ensuring your rights are safeguarded.
+      </p>
+      <div class="hero__actions">
+        <a href="/contact" class="btn btn--primary btn--lg">Contact Us</a>
+        <a href="/practice-areas" class="btn btn--outline btn--lg">View Practice Areas</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position:    relative;
+    min-height:  90vh;
+    display:     flex;
+    align-items: center;
+    background:  var(--grey-800);
+    overflow:    hidden;
+  }
+
+  .hero__bg {
+    position:   absolute;
+    inset:      0;
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    opacity:    0.5;
+  }
+
+  .hero__overlay {
+    position:   absolute;
+    inset:      0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.55) 0%,
+      rgba(0,0,0,0.70) 100%
+    );
+  }
+
+  .hero__content {
+    position:      relative;
+    z-index:       1;
+    text-align:    center;
+    max-width:     800px;
+    margin-inline: auto;
+    padding-block: var(--space-20);
+  }
+
+  .hero__title {
+    font-size:      var(--text-hero);
+    font-weight:    var(--fw-bold);
+    line-height:    var(--lh-snug);
+    color:          var(--white);
+    margin-bottom:  var(--space-6);
+    letter-spacing: var(--ls-tight);
+  }
+
+  /* "Legal Solutions" underline in white */
+  .hero__title-underline {
+    text-decoration:           underline;
+    text-decoration-color:     var(--white);
+    text-underline-offset:     8px;
+    text-decoration-thickness: 2px;
+  }
+
+  .hero__subtitle {
+    font-size:     var(--text-lg);
+    color:         rgba(255, 255, 255, 0.82);
+    line-height:   var(--lh-relaxed);
+    max-width:     56ch;
+    margin-inline: auto;
+    margin-bottom: var(--space-10);
+  }
+
+  .hero__actions {
+    display:         flex;
+    gap:             var(--space-4);
+    justify-content: center;
+    flex-wrap:       wrap;
+  }
+
+  /* Override btn sizes for hero */
+  .hero__actions .btn--lg {
+    padding:   0.9rem 2.25rem;
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: 80vh;
+    }
+    .hero__title {
+      font-size: var(--text-4xl);
+    }
+    .hero__subtitle {
+      font-size: var(--text-base);
+    }
+    .hero__actions {
+      flex-direction: column;
+      align-items:    center;
+    }
+    .hero__actions .btn {
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+    }
+  }
+</style>

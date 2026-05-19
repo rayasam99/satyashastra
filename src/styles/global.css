@@ -1,0 +1,883 @@
+/* ============================================================
+   SATYA SHASTRA — Global Design Tokens & Base Styles
+   Palette: 100% Greyscale — no colors
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Fonts — loaded via <link> in Layout.astro (non-blocking)
+      Fallback stacks defined here so layout is stable before
+      web fonts arrive (font-display: swap handled by Google).
+   ------------------------------------------------------------ */
+
+/* ------------------------------------------------------------
+   2. CSS Custom Properties (Design Tokens)
+   ------------------------------------------------------------ */
+:root {
+  /* --- Greyscale Palette --- */
+  --grey-900:  #111111;   /* near black                     */
+  --grey-800:  #1a1a1a;   /* primary dark — text, bg, footer */
+  --grey-700:  #2d2d2d;   /* slightly lighter dark           */
+  --grey-600:  #444444;   /* mid-dark — hover states         */
+  --grey-500:  #666666;   /* secondary text                  */
+  --grey-400:  #888888;   /* muted / placeholder             */
+  --grey-300:  #aaaaaa;   /* light text on dark bg           */
+  --grey-200:  #cccccc;   /* topbar text, footer text        */
+  --grey-150:  #d5d5d5;   /* borders on dark backgrounds     */
+  --grey-100:  #e0e0e0;   /* card borders, dividers on white */
+  --grey-050:  #f2f2f2;   /* section alternate background    */
+  --grey-025:  #f7f7f7;   /* light section background        */
+  --white:     #ffffff;
+
+  /* --- Semantic Color Aliases (all greyscale) --- */
+  --color-primary:        var(--grey-800);
+  --color-primary-light:  var(--grey-700);
+  --color-hover:          var(--grey-600);   /* replaces gold accent on hover */
+
+  --color-white:          var(--white);
+  --color-bg-light:       var(--grey-025);
+  --color-bg-section:     var(--grey-050);
+
+  --color-text-primary:   var(--grey-800);
+  --color-text-secondary: var(--grey-500);
+  --color-text-muted:     var(--grey-400);
+  --color-text-white:     var(--white);
+
+  --color-border:         var(--grey-100);
+  --color-border-dark:    var(--grey-700);
+
+  --color-overlay:        rgba(0, 0, 0, 0.62);
+  --color-overlay-light:  rgba(0, 0, 0, 0.40);
+
+  /* --- Typography --- */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Font Sizes (+2px across the board) */
+  --text-xs:   0.875rem;   /*  14px */
+  --text-sm:   1rem;       /*  16px */
+  --text-base: 1.125rem;   /*  18px */
+  --text-md:   1.1875rem;  /*  19px */
+  --text-lg:   1.25rem;    /*  20px */
+  --text-xl:   1.375rem;   /*  22px */
+  --text-2xl:  1.625rem;   /*  26px */
+  --text-3xl:  2rem;       /*  32px */
+  --text-4xl:  2.375rem;   /*  38px */
+  --text-5xl:  2.875rem;   /*  46px */
+  --text-6xl:  3.625rem;   /*  58px */
+  --text-hero: 4.125rem;   /*  66px — hero headline */
+
+  /* Font Weights */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Line Heights */
+  --lh-tight:   1.2;
+  --lh-snug:    1.35;
+  --lh-normal:  1.6;
+  --lh-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --ls-tight:   -0.02em;
+  --ls-normal:   0;
+  --ls-wide:     0.05em;
+  --ls-wider:    0.1em;
+  --ls-widest:   0.15em;
+
+  /* --- Spacing --- */
+  --space-1:   0.25rem;   /*   4px */
+  --space-2:   0.5rem;    /*   8px */
+  --space-3:   0.75rem;   /*  12px */
+  --space-4:   1rem;      /*  16px */
+  --space-5:   1.25rem;   /*  20px */
+  --space-6:   1.5rem;    /*  24px */
+  --space-8:   2rem;      /*  32px */
+  --space-10:  2.5rem;    /*  40px */
+  --space-12:  3rem;      /*  48px */
+  --space-16:  4rem;      /*  64px */
+  --space-20:  5rem;      /*  80px */
+  --space-24:  6rem;      /*  96px */
+  --space-32:  8rem;      /* 128px */
+
+  /* Section vertical padding */
+  --section-py:       5rem;   /* 80px  */
+  --section-py-large: 7rem;   /* 112px */
+
+  /* --- Layout --- */
+  --container-max:  1200px;
+  --container-wide: 1400px;
+  --container-px:   1.5rem;
+
+  /* --- Border Radius --- */
+  --radius-none: 0;
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   8px;
+  --radius-full: 9999px;
+
+  /* --- Shadows (greyscale) --- */
+  --shadow-sm:   0 1px 3px  rgba(0,0,0,0.08);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.18);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
+
+  /* --- Transitions --- */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* --- Top Bar --- */
+  --topbar-bg:     var(--grey-800);
+  --topbar-text:   var(--grey-200);
+  --topbar-height: 40px;
+  --header-total:  112px;  /* topbar 40px + navbar 72px */
+
+  /* --- Navigation --- */
+  --nav-bg:          var(--white);
+  --nav-text:        var(--grey-800);
+  --nav-link-size:   var(--text-sm);
+  --nav-link-weight: var(--fw-medium);
+  --nav-height:      72px;
+
+  /* --- Hero --- */
+  --hero-bg:         var(--grey-800);
+  --hero-min-height: 90vh;
+
+  /* --- Footer --- */
+  --footer-bg:           var(--grey-800);
+  --footer-text:         var(--grey-200);
+  --footer-heading-text: var(--white);
+}
+
+/* ------------------------------------------------------------
+   3. CSS Reset / Box Model
+   ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* Prevent content hiding under sticky TopBar + Navbar */
+  scroll-padding-top: var(--header-total);  /* 112px */
+}
+
+img,
+video,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+/* SVGs used as icons must stay inline; only standalone/layout SVGs need block */
+svg {
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ------------------------------------------------------------
+   4. Base / Body
+   ------------------------------------------------------------ */
+body {
+  font-family:             var(--font-body);
+  font-size:               var(--text-base);
+  font-weight:             var(--fw-regular);
+  line-height:             var(--lh-normal);
+  color:                   var(--color-text-primary);
+  background:              var(--white);
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------------------------------------------------------------
+   5. Typography Scale
+   ------------------------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color:       var(--color-text-primary);
+}
+
+h1 { font-size: var(--text-hero); }
+h2 { font-size: var(--text-4xl);  }
+h3 { font-size: var(--text-2xl);  }
+h4 { font-size: var(--text-xl);   }
+h5 { font-size: var(--text-lg);   }
+h6 { font-size: var(--text-base); }
+
+p {
+  font-size:   var(--text-base);
+  line-height: var(--lh-normal);
+  color:       var(--color-text-secondary);
+}
+
+/* Underline decoration — greyscale (bottom border, no gold) */
+.text-underline {
+  text-decoration:           underline;
+  text-decoration-color:     var(--grey-800);
+  text-underline-offset:     6px;
+  text-decoration-thickness: 2px;
+}
+
+/* Eyebrow / label text */
+.eyebrow {
+  display:        block;
+  font-family:    var(--font-body);
+  font-size:      var(--text-sm);
+  font-weight:    var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  color:          var(--color-text-muted);
+  margin-bottom:  var(--space-3);
+}
+
+/* Section title */
+.section-title {
+  font-size:     var(--text-4xl);
+  font-weight:   var(--fw-bold);
+  line-height:   var(--lh-snug);
+  margin-bottom: var(--space-4);
+}
+
+.section-subtitle {
+  font-size:     var(--text-md);
+  color:         var(--color-text-secondary);
+  line-height:   var(--lh-relaxed);
+  max-width:     52ch;
+  margin-inline: auto;
+}
+
+/* ------------------------------------------------------------
+   6. Layout Utilities
+   ------------------------------------------------------------ */
+.container {
+  width:          100%;
+  max-width:      var(--container-max);
+  margin-inline:  auto;
+  padding-inline: var(--container-px);
+}
+
+.container--wide {
+  max-width: var(--container-wide);
+}
+
+.section {
+  padding-block: var(--section-py);
+}
+
+.section--large {
+  padding-block: var(--section-py-large);
+}
+
+/* Light grey background section */
+.section--gray {
+  background: var(--color-bg-section);
+}
+
+/* Dark background section */
+.section--dark {
+  background: var(--grey-800);
+  color:      var(--white);
+}
+
+.section--dark h2,
+.section--dark h3,
+.section--dark h4 {
+  color: var(--white);
+}
+
+.section--dark p {
+  color:   var(--grey-200);
+  opacity: 0.9;
+}
+
+/* Text alignment */
+.text-center { text-align: center; }
+.text-left   { text-align: left;   }
+.text-right  { text-align: right;  }
+
+/* Flex helpers */
+.flex         { display: flex; }
+.flex-center  { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.grid         { display: grid; }
+
+/* ------------------------------------------------------------
+   7. Button Styles
+   ------------------------------------------------------------ */
+.btn {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--space-2);
+  font-family:     var(--font-body);
+  font-size:       var(--text-sm);
+  font-weight:     var(--fw-semibold);
+  letter-spacing:  var(--ls-wide);
+  text-transform:  uppercase;
+  padding:         0.875rem 2rem;
+  border:          2px solid transparent;
+  border-radius:   var(--radius-sm);
+  cursor:          pointer;
+  transition:      background var(--transition-normal),
+                   color var(--transition-normal),
+                   border-color var(--transition-normal);
+  white-space:     nowrap;
+  text-decoration: none;
+}
+
+/* Primary — dark fill, lightens on hover */
+.btn--primary {
+  background:   var(--grey-800);
+  color:        var(--white);
+  border-color: var(--grey-800);
+}
+.btn--primary:hover {
+  background:   var(--grey-600);
+  border-color: var(--grey-600);
+}
+
+/* Outline — white border on dark backgrounds (hero) */
+.btn--outline {
+  background:   transparent;
+  color:        var(--white);
+  border-color: var(--white);
+}
+.btn--outline:hover {
+  background: var(--white);
+  color:      var(--grey-800);
+}
+
+/* Outline dark — on light backgrounds */
+.btn--outline-dark {
+  background:   transparent;
+  color:        var(--grey-800);
+  border-color: var(--grey-800);
+}
+.btn--outline-dark:hover {
+  background: var(--grey-800);
+  color:      var(--white);
+}
+
+/* Ghost — lighter grey fill */
+.btn--ghost {
+  background:   var(--grey-050);
+  color:        var(--grey-800);
+  border-color: var(--grey-100);
+}
+.btn--ghost:hover {
+  background:   var(--grey-100);
+  border-color: var(--grey-200);
+}
+
+/* Size modifiers */
+.btn--sm {
+  font-size: var(--text-xs);
+  padding:   0.625rem 1.25rem;
+}
+
+.btn--lg {
+  font-size: var(--text-base);
+  padding:   1rem 2.5rem;
+}
+
+/* Text link with arrow — "Service Details →" */
+.link-arrow {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--space-2);
+  font-size:   var(--text-sm);
+  font-weight: var(--fw-semibold);
+  color:       var(--grey-800);
+  transition:  gap var(--transition-fast),
+               color var(--transition-fast);
+}
+.link-arrow:hover {
+  color: var(--grey-600);
+  gap:   var(--space-3);
+}
+
+/* ------------------------------------------------------------
+   8. Card Styles
+   ------------------------------------------------------------ */
+.card {
+  background: var(--white);
+  border:     1px solid var(--color-border);
+  overflow:   hidden;
+  transition: box-shadow var(--transition-normal),
+              transform  var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform:  translateY(-4px);
+}
+
+.card__image {
+  position:     relative;
+  overflow:     hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.card__image img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.card:hover .card__image img {
+  transform: scale(1.05);
+}
+
+/* Icon badge overlaid on bottom of card image */
+.card__icon-badge {
+  position:        absolute;
+  bottom:          -20px;
+  left:            50%;
+  transform:       translateX(-50%);
+  width:           44px;
+  height:          44px;
+  border-radius:   var(--radius-full);
+  background:      var(--grey-800);
+  color:           var(--white);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       1.1rem;
+  z-index:         1;
+}
+
+.card__body {
+  padding: var(--space-8) var(--space-6) var(--space-6);
+}
+
+.card__title {
+  font-size:     var(--text-xl);
+  font-weight:   var(--fw-bold);
+  color:         var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.card__text {
+  font-size:     var(--text-sm);
+  color:         var(--color-text-secondary);
+  line-height:   var(--lh-relaxed);
+  margin-bottom: var(--space-5);
+}
+
+/* ------------------------------------------------------------
+   9. Top Bar
+   ------------------------------------------------------------ */
+.topbar {
+  background:  var(--topbar-bg);
+  color:       var(--topbar-text);
+  height:      var(--topbar-height);
+  font-size:   var(--text-xs);
+  font-weight: var(--fw-medium);
+}
+
+.topbar a {
+  color:      var(--topbar-text);
+  transition: color var(--transition-fast);
+}
+.topbar a:hover {
+  color: var(--white);
+}
+
+/* ------------------------------------------------------------
+   10. Navigation
+   ------------------------------------------------------------ */
+.navbar {
+  background:    var(--nav-bg);
+  height:        var(--nav-height);
+  border-bottom: 1px solid var(--color-border);
+  position:      sticky;
+  top:           0;
+  z-index:       100;
+}
+
+.nav__link {
+  font-size:      var(--nav-link-size);
+  font-weight:    var(--nav-link-weight);
+  color:          var(--nav-text);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  padding:        var(--space-2) var(--space-4);
+  transition:     color var(--transition-fast);
+  position:       relative;
+}
+
+/* Underline indicator — dark, no color */
+.nav__link::after {
+  content:    '';
+  position:   absolute;
+  bottom:     -2px;
+  left:       var(--space-4);
+  right:      var(--space-4);
+  height:     2px;
+  background: var(--grey-800);
+  transform:  scaleX(0);
+  transition: transform var(--transition-fast);
+}
+
+.nav__link:hover,
+.nav__link.active {
+  color: var(--grey-600);
+}
+
+.nav__link:hover::after,
+.nav__link.active::after {
+  transform: scaleX(1);
+}
+
+/* Nav CTA button */
+.nav__cta {
+  background:     var(--grey-800);
+  color:          var(--white) !important;
+  padding:        0.6rem 1.5rem;
+  font-size:      var(--text-sm);
+  font-weight:    var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  border:         2px solid var(--grey-800);
+  transition:     background var(--transition-normal),
+                  border-color var(--transition-normal);
+}
+.nav__cta:hover {
+  background:   var(--grey-600);
+  border-color: var(--grey-600);
+}
+.nav__cta::after { display: none; }
+
+/* ------------------------------------------------------------
+   11. Hero Section
+   ------------------------------------------------------------ */
+.hero {
+  position:    relative;
+  min-height:  var(--hero-min-height);
+  display:     flex;
+  align-items: center;
+  background:  var(--hero-bg);
+  overflow:    hidden;
+}
+
+.hero__bg {
+  position:   absolute;
+  inset:      0;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  position:   absolute;
+  inset:      0;
+  background: var(--color-overlay);
+}
+
+.hero__content {
+  position:      relative;
+  z-index:       1;
+  text-align:    center;
+  max-width:     760px;
+  margin-inline: auto;
+}
+
+.hero__title {
+  font-size:      var(--text-hero);
+  font-weight:    var(--fw-bold);
+  line-height:    var(--lh-tight);
+  color:          var(--white);
+  margin-bottom:  var(--space-6);
+  letter-spacing: var(--ls-tight);
+}
+
+/* The underlined keyword in hero — white underline, no gold */
+.hero__title .underline {
+  text-decoration:           underline;
+  text-decoration-color:     var(--white);
+  text-underline-offset:     6px;
+  text-decoration-thickness: 2px;
+}
+
+.hero__subtitle {
+  font-size:     var(--text-lg);
+  color:         rgba(255, 255, 255, 0.82);
+  line-height:   var(--lh-relaxed);
+  margin-bottom: var(--space-10);
+  max-width:     52ch;
+  margin-inline: auto;
+}
+
+.hero__actions {
+  display:         flex;
+  gap:             var(--space-4);
+  justify-content: center;
+  flex-wrap:       wrap;
+}
+
+/* ------------------------------------------------------------
+   12. Section Header
+   ------------------------------------------------------------ */
+.section-header {
+  text-align:    center;
+  margin-bottom: var(--space-12);
+}
+
+.section-header .section-title {
+  margin-bottom: var(--space-4);
+}
+
+.section-header .section-subtitle {
+  margin-inline: auto;
+}
+
+/* ------------------------------------------------------------
+   13. Practice Area Grid
+   ------------------------------------------------------------ */
+.practice-grid {
+  display:               grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:                   var(--space-6);
+}
+
+/* ------------------------------------------------------------
+   14. Checklist (about section)
+   ------------------------------------------------------------ */
+.checklist {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-4);
+}
+
+.checklist__item {
+  display:     flex;
+  gap:         var(--space-3);
+  align-items: flex-start;
+}
+
+.checklist__icon {
+  flex-shrink:     0;
+  width:           20px;
+  height:          20px;
+  border-radius:   var(--radius-full);
+  background:      var(--grey-800);
+  color:           var(--white);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       0.65rem;
+  margin-top:      2px;
+}
+
+.checklist__label {
+  font-size:   var(--text-sm);
+  color:       var(--color-text-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+.checklist__label strong {
+  color:       var(--color-text-primary);
+  font-weight: var(--fw-semibold);
+}
+
+/* ------------------------------------------------------------
+   15. Phone Badge (image overlay)
+   ------------------------------------------------------------ */
+.phone-badge {
+  position:    absolute;
+  bottom:      var(--space-6);
+  left:        var(--space-6);
+  background:  var(--grey-800);
+  color:       var(--white);
+  padding:     var(--space-3) var(--space-5);
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-3);
+  font-size:   var(--text-sm);
+}
+
+.phone-badge__number {
+  font-size:   var(--text-base);
+  font-weight: var(--fw-bold);
+  display:     block;
+}
+
+.phone-badge__label {
+  font-size: var(--text-xs);
+  opacity:   0.7;
+  display:   block;
+}
+
+/* ------------------------------------------------------------
+   16. Footer
+   ------------------------------------------------------------ */
+.footer {
+  background:    var(--footer-bg);
+  color:         var(--footer-text);
+  padding-block: var(--space-16) var(--space-8);
+}
+
+.footer h4,
+.footer h5 {
+  color:          var(--footer-heading-text);
+  font-size:      var(--text-base);
+  font-weight:    var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  margin-bottom:  var(--space-5);
+}
+
+.footer__link {
+  font-size:     var(--text-sm);
+  color:         var(--footer-text);
+  display:       block;
+  padding-block: var(--space-1);
+  transition:    color var(--transition-fast),
+                 padding-left var(--transition-fast);
+}
+
+.footer__link::before {
+  content: '›  ';
+  color:   var(--grey-400);
+}
+
+.footer__link:hover {
+  color:        var(--white);
+  padding-left: var(--space-2);
+}
+
+.footer__bottom {
+  border-top:  1px solid var(--color-border-dark);
+  padding-top: var(--space-6);
+  margin-top:  var(--space-10);
+  font-size:   var(--text-xs);
+  color:       var(--grey-400);
+}
+
+/* Social icons */
+.social-icons {
+  display: flex;
+  gap:     var(--space-3);
+}
+
+.social-icon {
+  width:           36px;
+  height:          36px;
+  border-radius:   var(--radius-full);
+  border:          1px solid var(--grey-700);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  color:           var(--footer-text);
+  font-size:       var(--text-sm);
+  transition:      background   var(--transition-fast),
+                   color        var(--transition-fast),
+                   border-color var(--transition-fast);
+}
+.social-icon:hover {
+  background:   var(--grey-600);
+  border-color: var(--grey-600);
+  color:        var(--white);
+}
+
+/* ------------------------------------------------------------
+   17. Divider
+   ------------------------------------------------------------ */
+.divider {
+  width:      48px;
+  height:     3px;
+  background: var(--grey-800);
+  margin-block: var(--space-5);
+}
+
+.divider--center {
+  margin-inline: auto;
+}
+
+.divider--light {
+  background: var(--grey-300);
+}
+
+/* ------------------------------------------------------------
+   18. Responsive Breakpoints
+   ------------------------------------------------------------ */
+
+/* Tablet — ≤ 1024px */
+@media (max-width: 1024px) {
+  :root {
+    --text-hero:  3.125rem;
+    --text-4xl:   2.125rem;
+    --section-py: 4rem;
+  }
+
+  .practice-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile — ≤ 768px */
+@media (max-width: 768px) {
+  :root {
+    --text-hero:     2.375rem;
+    --text-4xl:      1.875rem;
+    --section-py:    3rem;
+    --container-px:  1rem;
+    --nav-height:    60px;
+  }
+
+  .practice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items:    center;
+  }
+
+  .section-header {
+    margin-bottom: var(--space-8);
+  }
+}
+
+/* Small mobile — ≤ 480px */
+@media (max-width: 480px) {
+  :root {
+    --text-hero: 2rem;
+  }
+
+  .btn {
+    width:           100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageBanner from '../components/PageBanner.astro';
+import { blogPosts as posts } from '../data/blogPosts.js';
+---
+
+<Layout title="Blog" description="Legal insights, news, and expert commentary from the attorneys at Satya Shastra.">
+
+  <PageBanner
+    title="Blog"
+    breadcrumb={[{ label: 'Blog' }]}
+    bgImage="/images/house-with-gavel-and-law-books-real-estate-law-and-house-aucti-1024x512.jpg"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="eyebrow">Legal Insights</span>
+        <h2 class="section-title">From Our Attorneys</h2>
+        <p class="section-subtitle">Expert commentary, legal updates, and practical guidance from the Satya Shastra team.</p>
+      </div>
+
+      <div class="blog__grid">
+        {posts.map(post => (
+          <article class="blog__card">
+            <a href={`/blog/${post.slug}`} class="blog__image-wrap" tabindex="-1" aria-hidden="true">
+              <img src={post.image} alt={post.title} loading="lazy" />
+              <span class="blog__category">{post.category}</span>
+            </a>
+            <div class="blog__body">
+              <span class="blog__date">{post.date}</span>
+              <h3 class="blog__title">
+                <a href={`/blog/${post.slug}`} class="blog__title-link">{post.title}</a>
+              </h3>
+              <p class="blog__excerpt">{post.excerpt}</p>
+              <a href={`/blog/${post.slug}`} class="blog__link">
+                Read More
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .blog__grid {
+    display:               grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:                   var(--space-8);
+    margin-top:            var(--space-10);
+  }
+
+  .blog__card {
+    border:     1px solid var(--grey-100);
+    background: var(--white);
+    overflow:   hidden;
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  }
+  .blog__card:hover {
+    box-shadow: var(--shadow-lg);
+    transform:  translateY(-4px);
+  }
+
+  .blog__title-link {
+    color:           inherit;
+    text-decoration: none;
+    transition:      color var(--transition-fast);
+  }
+  .blog__title-link:hover { color: var(--grey-500); }
+
+  .blog__image-wrap {
+    position:        relative;
+    aspect-ratio:    16 / 10;
+    overflow:        hidden;
+    background:      var(--grey-100);
+    text-decoration: none;
+    display:         block;
+  }
+  .blog__image-wrap img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+  .blog__card:hover .blog__image-wrap img {
+    transform: scale(1.05);
+  }
+
+  .blog__category {
+    position:    absolute;
+    top:         var(--space-4);
+    left:        var(--space-4);
+    background:  var(--grey-800);
+    color:       var(--white);
+    font-size:   var(--text-xs);
+    font-weight: var(--fw-semibold);
+    padding:     4px 10px;
+    text-transform: uppercase;
+    letter-spacing: var(--ls-wide);
+  }
+
+  .blog__body {
+    padding: var(--space-6);
+  }
+
+  .blog__date {
+    display:        block;
+    font-size:      var(--text-xs);
+    color:          var(--grey-400);
+    margin-bottom:  var(--space-2);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-wide);
+  }
+
+  .blog__title {
+    font-size:     var(--text-lg);
+    font-weight:   var(--fw-bold);
+    color:         var(--grey-800);
+    line-height:   var(--lh-snug);
+    margin-bottom: var(--space-3);
+  }
+
+  .blog__excerpt {
+    font-size:     var(--text-sm);
+    color:         var(--grey-500);
+    line-height:   var(--lh-relaxed);
+    margin-bottom: var(--space-5);
+    display:       -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow:      hidden;
+  }
+
+  .blog__link {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             var(--space-2);
+    font-size:       var(--text-sm);
+    font-weight:     var(--fw-semibold);
+    color:           var(--grey-800);
+    text-decoration: none;
+    text-transform:  uppercase;
+    letter-spacing:  var(--ls-wide);
+    transition:      gap var(--transition-fast), color var(--transition-fast);
+  }
+  .blog__link:hover {
+    color: var(--grey-600);
+    gap:   var(--space-3);
+  }
+
+  @media (max-width: 1024px) {
+    .blog__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .blog__grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageBanner from '../components/PageBanner.astro';
+
+const mainTeam = [
+  {
+    name:  'Krishna Kanth Pothireddy,',
+    quals: 'MBA, LLB',
+    image: '/images/Krishna-Kanth-Pothireddy-img-1.webp',
+  },
+  {
+    name:  'B. Sridhar Babu',
+    quals: 'Advocate. M. A., B. L., P.G.D.H.R.M.,',
+    image: '/images/B.-Sridhar-Babu-webp-848x1024.webp',
+  },
+  {
+    name:  'Shanthi Raju',
+    quals: '',
+    image: '/images/Shanthi-Raju-img-webp-2.webp',
+  },
+  {
+    name:  'Sreenivasa Murthy Inkollu',
+    quals: '',
+    image: '/images/Sreenivasa-Murthy-Inkollu-img-webp.webp',
+  },
+];
+
+---
+
+<Layout title="Our Team" description="Meet the experienced legal professionals at Satya Shastra dedicated to serving your needs.">
+
+  <PageBanner
+    title="Our Team"
+    breadcrumb={[{ label: 'Our Team' }]}
+    bgImage="/images/judge-gavel-justice-lawyers-business-woman-in-suit-or-lawyer-working-on-a-documents-legal-law-e1666440633507-768x739.jpg"
+  />
+
+  <!-- ── Main Team ── -->
+  <section class="section">
+    <div class="container">
+
+      <div class="team__intro">
+        <h2 class="team__heading">Our team</h2>
+        <p class="team__desc">We are one of the leading law firms that serves clients across key industries. We give our clients legal advice that is focused on finding solutions and is creative. We are known for our expertise and leadership in major practice areas.</p>
+        <div class="team__scales" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" width="36" height="36"><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 6l9-3 9 3"/><path d="M5 10l-2 7h4z"/><path d="M19 10l-2 7h4z"/><line x1="5" y1="21" x2="19" y2="21"/></svg>
+        </div>
+      </div>
+
+      <div class="team__grid">
+        {mainTeam.map(member => (
+          <div class="team__member">
+            <div class="team__photo-wrap">
+              <img src={member.image} alt={member.name} loading="lazy" />
+            </div>
+            <h3 class="team__name">{member.name}</h3>
+            {member.quals && <p class="team__quals">{member.quals}</p>}
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+
+</Layout>
+
+<style>
+  /* ── Intro ── */
+  .team__intro {
+    text-align:    center;
+    max-width:     660px;
+    margin:        0 auto var(--space-12);
+  }
+
+  .team__heading {
+    font-size:     var(--text-4xl);
+    font-weight:   var(--fw-bold);
+    color:         var(--grey-800);
+    margin-bottom: var(--space-5);
+  }
+
+  .team__desc {
+    font-size:     var(--text-sm);
+    color:         var(--grey-500);
+    line-height:   var(--lh-relaxed);
+    margin-bottom: var(--space-6);
+  }
+
+  .team__scales {
+    display:         flex;
+    justify-content: center;
+    color:           var(--grey-400);
+  }
+
+  /* ── Team Grid ── */
+  .team__grid {
+    display:               grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:                   var(--space-8);
+  }
+
+  .team__member {
+    text-align: center;
+  }
+
+  .team__photo-wrap {
+    aspect-ratio:  3 / 4;
+    overflow:      hidden;
+    background:    var(--grey-100);
+    margin-bottom: var(--space-4);
+    width:         100%;
+  }
+
+  .team__photo-wrap img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    display:    block;
+  }
+
+  .team__name {
+    font-size:     var(--text-lg);
+    font-weight:   var(--fw-semibold);
+    color:         var(--grey-800);
+    margin-bottom: var(--space-1);
+    line-height:   var(--lh-snug);
+  }
+
+  .team__quals {
+    font-size:  var(--text-sm);
+    color:      var(--grey-500);
+    font-style: italic;
+    margin:     0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .team__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .team__grid { grid-template-columns: 1fr; }
+  }
+</style>

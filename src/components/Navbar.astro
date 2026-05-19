@@ -1,0 +1,663 @@
+---
+import { practiceAreas } from '../data/practiceAreas.js';
+
+const currentPath = Astro.url.pathname;
+
+function isActive(path: string) {
+  if (path === '/') return currentPath === '/';
+  return currentPath.startsWith(path);
+}
+---
+
+<header class="navbar" id="siteNav">
+  <div class="container">
+    <div class="navbar__inner">
+
+      <!-- ── Left Nav (desktop) ── -->
+      <nav class="nav__list nav__list--left" aria-label="Primary left navigation">
+        <a href="/" class={`nav__link ${isActive('/') ? 'active' : ''}`}>Home</a>
+        <a href="/the-firm" class={`nav__link ${isActive('/the-firm') ? 'active' : ''}`}>The Firm</a>
+
+        <!-- Practice Areas Dropdown -->
+        <div class="nav__dropdown-wrap">
+          <a
+            href="/practice-areas"
+            class={`nav__link nav__link--drop ${isActive('/practice-areas') ? 'active' : ''}`}
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Practice Areas
+            <svg class="nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+          <ul class="nav__dropdown" role="menu">
+            {practiceAreas.map(area => (
+              <li role="none">
+                <a href={`/practice-areas/${area.slug}`} class="nav__dropdown-link" role="menuitem">
+                  <span class="nav__dropdown-icon" set:html={area.icon} aria-hidden="true" />
+                  {area.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+
+      <!-- ── Logo (Center) ── -->
+      <a href="/" class="navbar__logo" aria-label="Satya Shastra — Home">
+        <img src="/images/SS-Logo-Updated.png" alt="Satya Shastra" class="logo__img" />
+      </a>
+
+      <!-- ── Right Nav (desktop) ── -->
+      <nav class="nav__list nav__list--right" aria-label="Primary right navigation">
+        <a href="/media"    class={`nav__link ${isActive('/media')    ? 'active' : ''}`}>Media</a>
+        <a href="/our-team" class={`nav__link ${isActive('/our-team') ? 'active' : ''}`}>Our Team</a>
+        <a href="/blog"     class={`nav__link ${isActive('/blog')     ? 'active' : ''}`}>Blog</a>
+        <a href="/contact"  class="nav__cta" aria-label="Contact us">Contact Us</a>
+      </nav>
+
+      <!-- ── Hamburger (mobile / tablet) ── -->
+      <button
+        class="nav__hamburger"
+        id="navToggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+        type="button"
+      >
+        <span class="nav__hamburger-bar"></span>
+        <span class="nav__hamburger-bar"></span>
+        <span class="nav__hamburger-bar"></span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ── Mobile / Tablet Drawer ── -->
+  <div class="nav__mobile" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+
+    <!-- Overlay backdrop (click to close) -->
+    <div class="nav__backdrop" id="navBackdrop" aria-hidden="true"></div>
+
+    <div class="nav__drawer">
+      <!-- Drawer header -->
+      <div class="nav__drawer-head">
+        <img src="/images/SS-Logo-Updated.png" alt="Satya Shastra" class="nav__drawer-logo" style="height:36px;width:auto;filter:brightness(0) invert(1);" />
+        <button class="nav__drawer-close" id="navClose" aria-label="Close menu" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Drawer links -->
+      <nav class="nav__drawer-nav" aria-label="Mobile navigation">
+        <a href="/"          class="nav__drawer-link" data-close>Home</a>
+        <a href="/the-firm"  class="nav__drawer-link" data-close>The Firm</a>
+
+        <!-- Practice Areas accordion -->
+        <div class="nav__accordion">
+          <div class="nav__accordion-head">
+            <a href="/practice-areas" class="nav__drawer-link" data-close>Practice Areas</a>
+            <button
+              class="nav__accordion-btn"
+              id="accordionToggle"
+              aria-expanded="false"
+              aria-controls="accordionPanel"
+              type="button"
+              aria-label="Toggle Practice Areas submenu"
+            >
+              <svg class="nav__accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <div class="nav__accordion-panel" id="accordionPanel" aria-hidden="true">
+            {practiceAreas.map(area => (
+              <a
+                href={`/practice-areas/${area.slug}`}
+                class="nav__accordion-link"
+                data-close
+              >
+                <span aria-hidden="true" set:html={area.icon} />
+                {area.title}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <a href="/media"    class="nav__drawer-link" data-close>Media</a>
+        <a href="/our-team" class="nav__drawer-link" data-close>Our Team</a>
+        <a href="/blog"     class="nav__drawer-link" data-close>Blog</a>
+      </nav>
+
+      <!-- Drawer footer CTA -->
+      <div class="nav__drawer-footer">
+        <a href="/contact" class="btn btn--primary" style="width:100%;justify-content:center;" data-close>
+          Contact Us
+        </a>
+        <a href="tel:+11234567890" class="nav__drawer-phone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.19h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +1 (123) 456 7890
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /nav__mobile -->
+</header>
+
+<!-- ═══════════════════ STYLES ═══════════════════ -->
+<style>
+  /* ── Navbar Shell ── */
+  .navbar {
+    background:    var(--white);
+    border-bottom: 1px solid var(--grey-100);
+    position:      sticky;
+    top:           var(--topbar-height);   /* sit below sticky topbar */
+    z-index:       100;
+    box-shadow:    0 1px 6px rgba(0,0,0,0.06);
+  }
+
+  .navbar__inner {
+    display:     flex;
+    align-items: center;
+    height:      var(--nav-height);   /* 72px desktop */
+    overflow:    visible;
+  }
+
+  /* ── Logo ── */
+  .navbar__logo {
+    flex-shrink:     0;
+    text-align:      center;
+    text-decoration: none;
+    line-height:     1;
+    padding:         0 var(--space-5);
+    /* prevent logo shrinking on mid screens */
+    min-width:       160px;
+  }
+
+  .logo__img {
+    height:     52px;
+    width:      auto;
+    display:    block;
+    object-fit: contain;
+  }
+
+  /* ── Desktop Nav Lists ── */
+  .nav__list {
+    display:     flex;
+    align-items: center;
+    flex:        1;
+    gap:         0;
+    list-style:  none;
+  }
+
+  .nav__list--left  { justify-content: flex-end;  }
+  .nav__list--right { justify-content: flex-start; gap: var(--space-1); }
+
+  /* ── Nav Links ── */
+  .nav__link {
+    display:        inline-flex;
+    align-items:    center;
+    gap:            4px;
+    font-family:    var(--font-heading);
+    font-size:      var(--text-sm);
+    font-weight:    var(--fw-medium);
+    color:          var(--grey-600);
+    letter-spacing: var(--ls-wide);
+    padding:        var(--space-2) var(--space-3);
+    white-space:    nowrap;
+    position:       relative;
+    text-decoration: none;
+    transition:     color var(--transition-fast);
+  }
+
+  .nav__link::after {
+    content:    '';
+    position:   absolute;
+    bottom:     0;
+    left:       var(--space-3);
+    right:      var(--space-3);
+    height:     2px;
+    background: var(--grey-800);
+    transform:  scaleX(0);
+    transition: transform var(--transition-fast);
+  }
+
+  .nav__link:hover       { color: var(--grey-800); }
+  .nav__link.active      { color: var(--grey-800); font-weight: var(--fw-semibold); }
+
+  .nav__link:hover::after,
+  .nav__link.active::after { transform: scaleX(1); }
+
+  /* ── Contact Us CTA Button ── */
+  .nav__cta {
+    display:         inline-flex;
+    align-items:     center;
+    background:      var(--grey-800);
+    color:           var(--white);
+    font-family:     var(--font-heading);
+    font-size:       var(--text-sm);
+    font-weight:     var(--fw-semibold);
+    letter-spacing:  var(--ls-wide);
+    padding:         0.6rem 1.4rem;
+    border:          2px solid var(--grey-800);
+    text-decoration: none;
+    white-space:     nowrap;
+    margin-left:     var(--space-3);
+    transition:      background var(--transition-normal),
+                     border-color var(--transition-normal);
+  }
+  .nav__cta:hover {
+    background:   var(--grey-600);
+    border-color: var(--grey-600);
+  }
+
+  /* ── Practice Areas Dropdown ── */
+  .nav__dropdown-wrap {
+    position: relative;
+  }
+
+  .nav__chevron {
+    transition: transform var(--transition-fast);
+  }
+  .nav__dropdown-wrap:hover .nav__chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav__dropdown {
+    position:    absolute;
+    top:         100%;
+    left:        50%;
+    transform:   translateX(-50%) translateY(-6px);
+    background:  var(--white);
+    min-width:   268px;
+    border-top:  2px solid var(--grey-800);
+    box-shadow:  0 12px 40px rgba(0,0,0,0.14);
+    list-style:  none;
+    padding:     var(--space-2) 0;
+    opacity:     0;
+    visibility:  hidden;
+    pointer-events: none;
+    transition:  opacity var(--transition-normal),
+                 transform var(--transition-normal),
+                 visibility var(--transition-normal);
+    z-index:     200;
+  }
+
+  .nav__dropdown-wrap:hover .nav__dropdown,
+  .nav__dropdown-wrap:focus-within .nav__dropdown {
+    opacity:        1;
+    visibility:     visible;
+    pointer-events: auto;
+    transform:      translateX(-50%) translateY(0);
+  }
+
+
+  .nav__dropdown-link {
+    display:         flex;
+    align-items:     center;
+    gap:             var(--space-3);
+    padding:         0.55rem var(--space-5);
+    font-family:     var(--font-heading);
+    font-size:       var(--text-sm);
+    color:           var(--grey-600);
+    font-weight:     var(--fw-medium);
+    text-decoration: none;
+    border-left:     2px solid transparent;
+    transition:      background    var(--transition-fast),
+                     color         var(--transition-fast),
+                     padding-left  var(--transition-fast),
+                     border-color  var(--transition-fast);
+  }
+  .nav__dropdown-link:hover {
+    background:       var(--grey-025);
+    color:            var(--grey-800);
+    padding-left:     calc(var(--space-5) + 5px);
+    border-left-color: var(--grey-800);
+  }
+
+  .nav__dropdown-icon {
+    display:     flex;
+    align-items: center;
+    color:       var(--grey-400);
+    flex-shrink: 0;
+  }
+  .nav__dropdown-link:hover .nav__dropdown-icon { color: var(--grey-800); }
+
+  /* ── Hamburger Button ── */
+  .nav__hamburger {
+    display:          none;
+    flex-direction:   column;
+    justify-content:  center;
+    align-items:      center;
+    gap:              5px;
+    background:       none;
+    border:           none;
+    cursor:           pointer;
+    padding:          var(--space-2);
+    margin-left:      auto;
+    min-width:        44px;
+    min-height:       44px;    /* WCAG touch target */
+  }
+
+  .nav__hamburger-bar {
+    display:     block;
+    width:       22px;
+    height:      2px;
+    background:  var(--grey-800);
+    border-radius: 1px;
+    transition:  transform 300ms ease,
+                 opacity   300ms ease;
+  }
+
+  .navbar.menu-open .nav__hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .navbar.menu-open .nav__hamburger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .navbar.menu-open .nav__hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ═══ MOBILE / TABLET DRAWER ═══ */
+
+  /* full-screen overlay (backdrop) */
+  .nav__mobile {
+    position: fixed;
+    inset:    0;
+    z-index:  300;
+    display:  none;          /* JS toggles to flex */
+    align-items: flex-start;
+    pointer-events: none;
+  }
+
+  .nav__mobile.is-open {
+    display:        flex;
+    pointer-events: auto;
+  }
+
+  /* Semi-transparent backdrop */
+  .nav__backdrop {
+    position:   absolute;
+    inset:      0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity:    0;
+    transition: opacity 300ms ease;
+    cursor:     pointer;
+  }
+  .nav__mobile.is-open .nav__backdrop {
+    opacity: 1;
+  }
+
+  /* Slide-in drawer panel */
+  .nav__drawer {
+    position:         relative;
+    z-index:          1;
+    background:       var(--white);
+    width:            min(320px, 88vw);
+    height:           100dvh;           /* full viewport height */
+    overflow-y:       auto;
+    display:          flex;
+    flex-direction:   column;
+    transform:        translateX(-100%);
+    transition:       transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:       4px 0 24px rgba(0,0,0,0.18);
+    overscroll-behavior: contain;
+  }
+
+  .nav__mobile.is-open .nav__drawer {
+    transform: translateX(0);
+  }
+
+  /* Drawer header row */
+  .nav__drawer-head {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    padding:         var(--space-5) var(--space-6);
+    border-bottom:   1px solid var(--grey-100);
+    background:      var(--grey-800);
+    flex-shrink:     0;
+  }
+
+  .nav__drawer-logo {
+    font-family:    var(--font-heading);
+    font-size:      1rem;
+    font-weight:    var(--fw-bold);
+    letter-spacing: var(--ls-wider);
+    color:          var(--white);
+  }
+
+  .nav__drawer-close {
+    background: none;
+    border:     none;
+    cursor:     pointer;
+    padding:    var(--space-2);
+    color:      var(--grey-300);
+    min-width:  44px;
+    min-height: 44px;
+    display:    flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-fast);
+  }
+  .nav__drawer-close:hover { color: var(--white); }
+
+  /* Drawer nav links */
+  .nav__drawer-nav {
+    flex:    1;
+    padding: var(--space-2) 0;
+  }
+
+  .nav__drawer-link {
+    display:         block;
+    padding:         var(--space-4) var(--space-6);
+    font-family:     var(--font-heading);
+    font-size:       var(--text-sm);
+    font-weight:     var(--fw-medium);
+    color:           var(--grey-700);
+    letter-spacing:  var(--ls-wide);
+    border-bottom:   1px solid var(--grey-050);
+    text-decoration: none;
+    transition:      color var(--transition-fast),
+                     background var(--transition-fast);
+    /* 44px min touch target */
+    min-height:      44px;
+    display:         flex;
+    align-items:     center;
+  }
+  .nav__drawer-link:hover {
+    color:      var(--grey-800);
+    background: var(--grey-025);
+  }
+
+  /* ── Accordion (Practice Areas) ── */
+  .nav__accordion-head {
+    display:     flex;
+    align-items: center;
+    border-bottom: 1px solid var(--grey-050);
+  }
+
+  .nav__accordion-head .nav__drawer-link {
+    flex:         1;
+    border-bottom: none;
+  }
+
+  .nav__accordion-btn {
+    flex-shrink:     0;
+    background:      none;
+    border:          none;
+    cursor:          pointer;
+    padding:         var(--space-3) var(--space-4);
+    color:           var(--grey-500);
+    min-width:       44px;
+    min-height:      44px;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    transition:      color var(--transition-fast);
+  }
+  .nav__accordion-btn:hover { color: var(--grey-800); }
+
+  .nav__accordion-icon {
+    transition: transform 280ms ease;
+  }
+  .nav__accordion-btn[aria-expanded="true"] .nav__accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Accordion panel (collapsed by default) */
+  .nav__accordion-panel {
+    max-height:    0;
+    overflow:      hidden;
+    background:    var(--grey-025);
+    transition:    max-height 320ms ease;
+  }
+
+  .nav__accordion-panel.is-open {
+    max-height: 600px;    /* large enough for 8 items */
+  }
+
+  .nav__accordion-link {
+    display:         flex;
+    align-items:     center;
+    gap:             var(--space-3);
+    padding:         0.65rem var(--space-6) 0.65rem var(--space-8);
+    font-family:     var(--font-heading);
+    font-size:       var(--text-sm);
+    color:           var(--grey-600);
+    border-bottom:   1px solid var(--grey-100);
+    text-decoration: none;
+    min-height:      40px;
+    transition:      color var(--transition-fast),
+                     background var(--transition-fast);
+  }
+  .nav__accordion-link:hover {
+    color:      var(--grey-800);
+    background: var(--grey-100);
+  }
+
+  .nav__accordion-link svg {
+    color:       var(--grey-400);
+    flex-shrink: 0;
+  }
+
+  /* Drawer footer */
+  .nav__drawer-footer {
+    padding:      var(--space-6);
+    border-top:   1px solid var(--grey-100);
+    display:      flex;
+    flex-direction: column;
+    gap:          var(--space-3);
+    flex-shrink:  0;
+    background:   var(--white);
+  }
+
+  .nav__drawer-phone {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             var(--space-2);
+    font-family:     var(--font-heading);
+    font-size:       var(--text-sm);
+    font-weight:     var(--fw-semibold);
+    color:           var(--grey-700);
+    text-decoration: none;
+    padding:         var(--space-3);
+    border:          1px solid var(--grey-200);
+    transition:      color var(--transition-fast),
+                     border-color var(--transition-fast);
+  }
+  .nav__drawer-phone:hover {
+    color:        var(--grey-800);
+    border-color: var(--grey-800);
+  }
+
+  /* ═══ RESPONSIVE BREAKPOINTS ═══ */
+
+  /* Hide desktop nav, show hamburger at ≤ 1024px */
+  @media (max-width: 1024px) {
+    .nav__list--left,
+    .nav__list--right { display: none; }
+
+    .nav__hamburger { display: flex; }
+
+    .navbar__logo {
+      /* Take remaining width when hamburger shown */
+      flex: 1;
+      min-width: unset;
+    }
+  }
+
+  /* Slightly tighter nav height on tablet */
+  @media (max-width: 768px) {
+    .navbar__inner {
+      height: var(--nav-height);   /* 60px via :root override */
+    }
+  }
+</style>
+
+<!-- ═══════════════════ SCRIPT ═══════════════════ -->
+<script>
+  (() => {
+    const navbar        = document.getElementById('siteNav')!;
+    const toggle        = document.getElementById('navToggle')!;
+    const closeBtn      = document.getElementById('navClose')!;
+    const mobileMenu    = document.getElementById('mobileMenu')!;
+    const backdrop      = document.getElementById('navBackdrop')!;
+    const accordionBtn  = document.getElementById('accordionToggle')!;
+    const accordionPanel = document.getElementById('accordionPanel')!;
+
+    /* ── Open / Close helpers ── */
+    function openMenu() {
+      mobileMenu.classList.add('is-open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      navbar.classList.add('menu-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close navigation menu');
+      document.body.style.overflow = 'hidden';   // scroll-lock
+    }
+
+    function closeMenu() {
+      mobileMenu.classList.remove('is-open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      navbar.classList.remove('menu-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation menu');
+      document.body.style.overflow = '';
+    }
+
+    /* ── Hamburger toggle ── */
+    toggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.contains('is-open');
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    /* ── Close button inside drawer ── */
+    closeBtn.addEventListener('click', closeMenu);
+
+    /* ── Backdrop click ── */
+    backdrop.addEventListener('click', closeMenu);
+
+    /* ── Close on any link click inside drawer ── */
+    mobileMenu.querySelectorAll('[data-close]').forEach(el => {
+      el.addEventListener('click', closeMenu);
+    });
+
+    /* ── Escape key ── */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) closeMenu();
+    });
+
+    /* ── Practice Areas accordion ── */
+    accordionBtn.addEventListener('click', () => {
+      const isExpanded = accordionBtn.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        accordionBtn.setAttribute('aria-expanded', 'false');
+        accordionPanel.classList.remove('is-open');
+        accordionPanel.setAttribute('aria-hidden', 'true');
+      } else {
+        accordionBtn.setAttribute('aria-expanded', 'true');
+        accordionPanel.classList.add('is-open');
+        accordionPanel.setAttribute('aria-hidden', 'false');
+      }
+    });
+
+    /* ── Resize: close menu if viewport goes wide ── */
+    const mq = window.matchMedia('(min-width: 1025px)');
+    mq.addEventListener('change', e => { if (e.matches) closeMenu(); });
+  })();
+</script>

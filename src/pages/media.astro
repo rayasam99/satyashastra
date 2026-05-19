@@ -1,0 +1,414 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageBanner from '../components/PageBanner.astro';
+
+const videos = [
+  { title: 'జగన్‌ రావట్లేదని..బోర్డుల తొలగింపు Tirumala Boards Removed To Jagan\'s Tour Cancel | RTV', videoId: 'ZFS-sZKjf8E' },
+  { title: 'షర్మిల చీట్‌ చేసిందా! | YS Jagan Petition DETAILED Explanation | YS Sharmila | YS Vijayamma | RTV', videoId: '40RPXJSTRMg' },
+  { title: '2 వేల కోట్ల మోసం... రోడ్డున పడ్డ 1800 మంది Sahithi Construction Real Estate Scam | RTV', videoId: '18eu-j3qRpE' },
+  { title: 'క్షమాపణ చెప్పినా.. రెండేళ్ల శిక్ష..100కోట్ల ఫైన్ తప్పదా? | Nagarjuna & Konda Surekha Controversy', videoId: 'eqbAx0KC75Q' },
+  { title: 'డిక్లరేషన్ ఇవ్వకుండా జగన్ తిరుమలకు రావొద్దు | Advocate Krishnakanth Petition In High Court | ABN', videoId: 'lMUMyisphSE' },
+  { title: 'అంతా జానీలే ఇండస్ట్రీ ఏం పీకుతోంది! | Big Debate On Choreographer Jani Master Case | RTV', videoId: 'Ca-SQMbR6iE' },
+  { title: 'హైడ్రా చట్టవిరుద్దమా? Many Questions On Hydra Demolishes | Ranganath | Nagarjuna | RTV', videoId: 'v4pKglNmjv4' },
+  { title: 'Satyamev Jayate: Big Discussion on Real Estate Scams | How To Avoid Real Estate Scams', videoId: 'G8mkrDy4dGE' },
+  { title: 'ఎవరి వాటా ఎంత ..సెటిల్‌మెంట్‌ | Duvvada Srinivas Vs Duvvada Vani | Duvvada Vani Settlement | RTV', videoId: 'fzEbD_XvN2A' },
+  { title: 'Duvvada Srinivas Phone Call To RTV | LIVE చూస్తూ.. RTVకి దువ్వాడ ఫోన్', videoId: 'dX4Wa8UZHwI' },
+  { title: 'టాలీవుడ్‌లోనూ క్యాస్టింగ్ కౌచ్ | Casting Couch In Telugu Film Industry', videoId: 'r2MUEvJy5wQ' },
+  { title: 'రాజ్‌ఆస్తుల్లో లావణ్యకు వాటా..| Raj Tarun Lavanya Latest | Mastan Sai', videoId: 'rpdxIf31g7g' },
+  { title: 'Sahithi Infra Scam Victims Protest At Hyderabad, Demands Their Plots', videoId: 'eZGyd8jUwF4' },
+  { title: 'Sahiti Sarvani Elite in Ameenpur | మమ్మల్ని నిండా ముంచారు', videoId: 'd9j1T9ZPEuQ' },
+  { title: 'Victim Reveals Sahiti Sarvani Elite Frauds | సాహితీ ఎలైట్ స్కామ్ లో... వేల కోట్లు చేసింది వాళ్లే!', videoId: 'uWrUJLI9-RU' },
+  { title: 'EVENING NEWS With MALLANNA 31-03-2024', videoId: 'ZRZqmwDkzPM' },
+  { title: 'సాహితీ కుంభకోణం | Sahithi Construction Real Estate Scam', videoId: 'zDzzzfFpUdQ' },
+  { title: 'Special Debate On Marriages | భార్య బాధితుల సంఘం..', videoId: 'a5d07UuWf6g' },
+];
+
+const images = [
+  { image: '/images/Media-img-1-webp.webp', alt: 'Satya Shastra Media' },
+];
+---
+
+<Layout title="Media" description="Videos, images, and press coverage featuring Satya Shastra — Advocates & Solicitors.">
+
+  <PageBanner
+    title="Media"
+    breadcrumb={[{ label: 'Media' }]}
+    bgImage="/images/Media-img-1-webp.webp"
+  />
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Tab Controls -->
+      <div class="media__tabs" role="tablist" aria-label="Media type">
+        <button
+          class="media__tab media__tab--active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel-videos"
+          id="tab-videos"
+          data-tab="videos"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Videos
+        </button>
+        <button
+          class="media__tab"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-images"
+          id="tab-images"
+          data-tab="images"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Images
+        </button>
+      </div>
+
+      <!-- Videos Panel -->
+      <div id="panel-videos" role="tabpanel" aria-labelledby="tab-videos" class="media__panel media__panel--active">
+        <div class="media__videos-grid">
+          {videos.map(v => (
+            <a
+              href={`https://www.youtube.com/watch?v=${v.videoId}`}
+              class="media__video-card"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Watch: ${v.title}`}
+            >
+              <div class="media__video-thumb">
+                <img src={`https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg`} alt={v.title} loading="lazy" />
+                <div class="media__video-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+              <div class="media__video-info">
+                <h3 class="media__video-title">{v.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Images Panel -->
+      <div id="panel-images" role="tabpanel" aria-labelledby="tab-images" class="media__panel" hidden>
+        <div class="media__images-grid">
+          {images.map(item => (
+            <button class="media__image-card" data-src={item.image} aria-label="View image">
+              <img src={item.image} alt={item.alt} loading="lazy" />
+              <div class="media__image-zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+          <button class="lightbox__close" id="lightbox-close" aria-label="Close">&times;</button>
+          <div class="lightbox__backdrop" id="lightbox-backdrop"></div>
+          <img class="lightbox__img" id="lightbox-img" src="" alt="" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* ── Tabs ── */
+  .media__tabs {
+    display:         flex;
+    justify-content: center;
+    gap:             var(--space-4);
+    margin-bottom:   var(--space-12);
+  }
+
+  .media__tab {
+    display:        inline-flex;
+    align-items:    center;
+    gap:            var(--space-3);
+    padding:        var(--space-4) var(--space-10);
+    font-size:      var(--text-sm);
+    font-weight:    var(--fw-semibold);
+    font-family:    var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-wider);
+    cursor:         pointer;
+    border:         2px solid var(--grey-800);
+    background:     transparent;
+    color:          var(--grey-800);
+    transition:     background var(--transition-fast),
+                    color var(--transition-fast),
+                    box-shadow var(--transition-fast),
+                    transform var(--transition-fast);
+    min-width:      160px;
+    justify-content: center;
+  }
+
+  .media__tab--active,
+  .media__tab:hover {
+    background:  var(--grey-800);
+    color:       var(--white);
+    box-shadow:  0 4px 16px rgba(0,0,0,0.18);
+    transform:   translateY(-1px);
+  }
+
+  /* ── Videos Grid ── */
+  .media__videos-grid {
+    display:               grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:                   var(--space-6);
+  }
+
+  .media__video-card {
+    display:         block;
+    text-decoration: none;
+    background:      var(--white);
+    border:          1px solid var(--grey-100);
+    overflow:        hidden;
+    transition:      box-shadow var(--transition-normal), transform var(--transition-normal);
+  }
+  .media__video-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform:  translateY(-3px);
+  }
+
+  .media__video-thumb {
+    position:     relative;
+    aspect-ratio: 16 / 9;
+    overflow:     hidden;
+    background:   var(--grey-100);
+  }
+
+  .media__video-thumb img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+  .media__video-card:hover .media__video-thumb img {
+    transform: scale(1.04);
+  }
+
+  .media__video-play {
+    position:        absolute;
+    inset:           0;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    background:      rgba(0, 0, 0, 0.35);
+    color:           var(--white);
+    transition:      background var(--transition-fast);
+  }
+  .media__video-card:hover .media__video-play {
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .media__video-play svg {
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+  }
+
+  .media__video-info {
+    padding: var(--space-5) var(--space-6);
+  }
+
+  .media__video-date {
+    display:        block;
+    font-size:      var(--text-xs);
+    color:          var(--grey-400);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-wide);
+    margin-bottom:  var(--space-2);
+  }
+
+  .media__video-title {
+    font-size:   var(--text-lg);
+    font-weight: var(--fw-bold);
+    color:       var(--grey-800);
+    line-height: var(--lh-snug);
+  }
+
+  /* ── Images Grid ── */
+  .media__images-grid {
+    display:               grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:                   var(--space-6);
+  }
+
+  .media__image-card {
+    position:   relative;
+    display:    block;
+    border:     none;
+    padding:    0;
+    cursor:     pointer;
+    overflow:   hidden;
+    background: var(--grey-100);
+    aspect-ratio: 16 / 9;
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  }
+  .media__image-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform:  translateY(-3px);
+  }
+
+  .media__image-card img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    display:    block;
+    transition: transform var(--transition-slow);
+  }
+  .media__image-card:hover img {
+    transform: scale(1.04);
+  }
+
+  .media__image-zoom {
+    position:        absolute;
+    inset:           0;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    background:      rgba(0,0,0,0);
+    color:           var(--white);
+    transition:      background var(--transition-fast);
+  }
+  .media__image-card:hover .media__image-zoom {
+    background: rgba(0,0,0,0.45);
+  }
+  .media__image-zoom svg {
+    opacity:    0;
+    transform:  scale(0.8);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+  }
+  .media__image-card:hover .media__image-zoom svg {
+    opacity:   1;
+    transform: scale(1);
+  }
+
+  /* ── Lightbox ── */
+  .lightbox {
+    position:        fixed;
+    inset:           0;
+    z-index:         1000;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    padding:         var(--space-8);
+  }
+  .lightbox[hidden] { display: none; }
+
+  .lightbox__backdrop {
+    position:   absolute;
+    inset:      0;
+    background: rgba(0,0,0,0.85);
+    cursor:     pointer;
+  }
+
+  .lightbox__img {
+    position:         relative;
+    z-index:          1;
+    max-width:        90vw;
+    max-height:       85vh;
+    object-fit:       contain;
+    box-shadow:       0 8px 40px rgba(0,0,0,0.6);
+    border:           2px solid rgba(255,255,255,0.1);
+  }
+
+  .lightbox__close {
+    position:        absolute;
+    top:             var(--space-5);
+    right:           var(--space-5);
+    z-index:         2;
+    width:           44px;
+    height:          44px;
+    border:          2px solid rgba(255,255,255,0.4);
+    background:      rgba(0,0,0,0.5);
+    color:           var(--white);
+    font-size:       1.5rem;
+    line-height:     1;
+    cursor:          pointer;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    transition:      background var(--transition-fast), border-color var(--transition-fast);
+  }
+  .lightbox__close:hover {
+    background:    rgba(0,0,0,0.8);
+    border-color:  var(--white);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .media__videos-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .media__videos-grid,
+    .media__images-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  (function () {
+    // Lightbox
+    const lightbox   = document.getElementById('lightbox') as HTMLElement;
+    const lbImg      = document.getElementById('lightbox-img') as HTMLImageElement;
+    const lbClose    = document.getElementById('lightbox-close') as HTMLElement;
+    const lbBackdrop = document.getElementById('lightbox-backdrop') as HTMLElement;
+
+    document.querySelectorAll<HTMLElement>('.media__image-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const src = card.dataset.src || '';
+        const alt = card.querySelector('img')?.alt || '';
+        lbImg.src = src;
+        lbImg.alt = alt;
+        lightbox.hidden = false;
+        document.body.style.overflow = 'hidden';
+        lbClose.focus();
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbBackdrop.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+    });
+
+    // Tabs
+    const tabs   = document.querySelectorAll<HTMLElement>('.media__tab');
+    const panels = document.querySelectorAll<HTMLElement>('.media__panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach(t => {
+          t.classList.remove('media__tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+
+        panels.forEach(p => {
+          p.classList.remove('media__panel--active');
+          p.hidden = true;
+        });
+
+        tab.classList.add('media__tab--active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const panel = document.getElementById('panel-' + target);
+        if (panel) {
+          panel.classList.add('media__panel--active');
+          panel.hidden = false;
+        }
+      });
+    });
+  })();
+</script>

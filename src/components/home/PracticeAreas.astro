@@ -1,0 +1,202 @@
+---
+import { practiceAreas } from '../../data/practiceAreas.js';
+---
+
+<section class="section practice-section">
+  <div class="container">
+
+    <!-- Section Header -->
+    <div class="practice-section__header">
+      <h2 class="section-title">Our Practice Areas</h2>
+
+      <!-- Decorative scales icon -->
+      <div class="practice-section__deco">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <line x1="12" y1="3" x2="12" y2="21"/>
+          <path d="M3 6l9-3 9 3"/>
+          <path d="M5 9l-2 7h4z"/>
+          <path d="M19 9l-2 7h4z"/>
+          <line x1="5" y1="21" x2="19" y2="21"/>
+        </svg>
+      </div>
+
+      <p class="section-subtitle">
+        We stand ready to deliver creative and tailor-made solutions and provide
+        exceptionally high-quality advice in all major practice areas.
+      </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="practice-grid">
+      {practiceAreas.map(area => (
+        <article class="practice-card">
+          <!-- Card Image -->
+          <div class="practice-card__image-wrap">
+            <img
+              src={area.image}
+              alt={area.title}
+              class="practice-card__image"
+              loading="lazy"
+            />
+            <!-- Icon badge centered at bottom of image -->
+            <span class="practice-card__badge" set:html={area.icon} />
+          </div>
+
+          <!-- Card Body -->
+          <div class="practice-card__body">
+            <h3 class="practice-card__title">{area.title}</h3>
+            <p class="practice-card__text">{area.excerpt}</p>
+            <a href={`/practice-areas/${area.slug}`} class="practice-card__link">
+              Service Details
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .practice-section {
+    background:    var(--grey-050);
+    padding-block: var(--section-py);
+  }
+
+  /* ── Section Header ── */
+  .practice-section__header {
+    text-align:    center;
+    margin-bottom: var(--space-12);
+  }
+
+  .practice-section__header .section-title {
+    color:         var(--grey-800);
+    margin-bottom: var(--space-4);
+  }
+
+  .practice-section__deco {
+    display:         flex;
+    justify-content: center;
+    color:           var(--grey-400);
+    margin-bottom:   var(--space-4);
+  }
+
+  .practice-section__header .section-subtitle {
+    max-width:     58ch;
+    margin-inline: auto;
+    color:         var(--grey-500);
+    font-size:     var(--text-sm);
+  }
+
+  /* ── Grid ── */
+  .practice-grid {
+    display:               grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:                   var(--space-6);
+  }
+
+  /* ── Card ── */
+  .practice-card {
+    background:  var(--white);
+    border:      1px solid var(--grey-100);
+    overflow:    visible;
+    transition:  box-shadow var(--transition-normal),
+                 transform  var(--transition-normal);
+  }
+
+  .practice-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    transform:  translateY(-4px);
+  }
+
+  /* ── Image ── */
+  .practice-card__image-wrap {
+    position:     relative;
+    overflow:     hidden;
+    aspect-ratio: 4 / 3;
+    background:   var(--grey-100);  /* placeholder bg until image loads */
+  }
+
+  .practice-card__image {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    display:    block;
+    transition: transform var(--transition-slow);
+  }
+
+  .practice-card:hover .practice-card__image {
+    transform: scale(1.06);
+  }
+
+  /* Icon badge — dark circle centered at bottom of image */
+  .practice-card__badge {
+    position:        absolute;
+    bottom:          -18px;
+    left:            50%;
+    transform:       translateX(-50%);
+    width:           40px;
+    height:          40px;
+    border-radius:   50%;
+    background:      var(--grey-800);
+    color:           var(--white);
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    z-index:         2;
+    border:          2px solid var(--grey-050);
+  }
+
+  /* ── Body ── */
+  .practice-card__body {
+    padding: var(--space-8) var(--space-5) var(--space-6);
+  }
+
+  .practice-card__title {
+    font-size:     var(--text-lg);
+    font-weight:   var(--fw-bold);
+    color:         var(--grey-800);
+    margin-bottom: var(--space-3);
+    line-height:   var(--lh-snug);
+  }
+
+  .practice-card__text {
+    font-size:     var(--text-sm);
+    color:         var(--grey-500);
+    line-height:   var(--lh-relaxed);
+    margin-bottom: var(--space-5);
+  }
+
+  /* "Service Details →" link */
+  .practice-card__link {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             var(--space-2);
+    font-size:       var(--text-sm);
+    font-weight:     var(--fw-semibold);
+    color:           var(--grey-800);
+    text-decoration: none;
+    text-transform:  uppercase;
+    letter-spacing:  var(--ls-wide);
+    transition:      gap var(--transition-fast),
+                     color var(--transition-fast);
+  }
+  .practice-card__link:hover {
+    color: var(--grey-600);
+    gap:   var(--space-3);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .practice-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .practice-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
