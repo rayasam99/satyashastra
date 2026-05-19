@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
   const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
   const { error } = await resend.emails.send({
-    from:    'Satya Shastra Website <onboarding@resend.dev>',
+    from:    'Satya Shastra <noreply@noreply.satyashastra.com>',
     to:      'contact@satyashastra.com',
     replyTo: email,
     subject: `New Enquiry: ${subject}`,
