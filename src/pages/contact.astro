@@ -348,8 +348,9 @@ import PageBanner from '../components/PageBanner.astro';
         return;
       }
 
-      form.hidden      = true;
-      successBox.hidden = false;
+      form.style.display  = 'none';
+      successBox.hidden   = false;
+      successBox.style.display = 'flex';
     } catch {
       errorBox.textContent = 'Network error. Please check your connection and try again.';
       errorBox.hidden = false;
